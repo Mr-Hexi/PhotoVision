@@ -93,17 +93,7 @@
             <a class="nav-link" href="#">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Portfolio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Blog</a>
-          </li>
+            <a class="nav-link" href="https://www.instagram.com/mr.hexi/">Instagram</a>
         </ul>
       </div>
     </div>
@@ -124,45 +114,26 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js"></script>
 
   <script>
-    // Array of image filenames
-    const photos = [
-    '1.jpg',
-      '2.jpg',
-      '3.jpg',
-      '4.jpg',
-      '5.jpg',
-      '6.jpg',
-      '7.jpg',
-      '8.jpg',
-      '9.jpg',
-      '10.jpg',
-      '11.jpeg',
-      '12.jpg',
-      '13.jpg',
-      '14.jpg',
-      '15.jpg',
-      '16.jpg',
-      '17.jpg',
-      '18.jpg',
-      '19.jpg',
-      '20.jpg',
-
-      // Add more photo filenames here
-    ];
-
-    const galleryGrid = document.getElementById('gallery-grid');
-
-    // Loop through the photos array and add them to the gallery grid
-    photos.forEach(photo => {
-      const galleryItem = document.createElement('div');
-      galleryItem.classList.add('gallery-item');
-      galleryItem.innerHTML = `
-        <a href="images/${photo}" data-lightbox="gallery" data-title="${photo.split('.')[0].replace('_', ' ').toUpperCase()}">
-          <img src="images/${photo}" alt="${photo}">
-        </a>
-      `;
-      galleryGrid.appendChild(galleryItem);
-    });
+    fetch('images.json')
+      .then(response => response.json())
+      .then(data => {
+        const galleryGrid = document.getElementById('gallery-grid');
+        data.images.forEach(photo => {
+          const galleryItem = document.createElement('div');
+          galleryItem.classList.add('gallery-item');
+  
+          galleryItem.innerHTML = `
+            <a href="images/${photo}" data-lightbox="gallery" data-title="${photo}">
+              <img src="images/${photo}" alt="${photo}">
+              <div class="gallery-item-overlay">
+                
+              </div>
+            </a>
+          `;
+          galleryGrid.appendChild(galleryItem);
+        });
+      })
+      .catch(error => console.error('Error loading images:', error));
   </script>
 
 </body>
